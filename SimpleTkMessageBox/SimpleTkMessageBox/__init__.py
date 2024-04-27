@@ -1,1 +1,1 @@
-from SimpleTKMessageBox.SimpleTKMessageBox import ShowMSBox
+from SimpleTkMessageBox.SimpleTkMessageBox import ShowMSBox

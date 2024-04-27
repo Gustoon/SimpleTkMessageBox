@@ -1,7 +1,7 @@
 from tkinter import ttk
 import tkinter
 import os
-
+import sys
 def ShowMSBox(master, Icon="Information", Title="Message Box", IconStyle="Windows 10", button1="", button2="", button3="", text="This is an info"):
     MsB = tkinter.Toplevel(master)
     StyleList = ["Windows 11","Windows 10", "Windows 7", "Personalized"]
@@ -31,7 +31,10 @@ def ShowMSBox(master, Icon="Information", Title="Message Box", IconStyle="Window
     if IconStyle == "Personalized":
         Path = Icon
     else:
-        Path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons/' + Style + '/' + IconPath)
+        if sys.platform == "win32":
+            Path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons\\' + Style + '\\' + IconPath)
+        else:
+            Path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons/' + Style + '/' + IconPath)
     photo = tkinter.PhotoImage(file=Path)
     image = ttk.Label(master=MsB, text="", image=photo)
     image.place(x=20, y=35)
@@ -77,8 +80,10 @@ def ShowMSBox(master, Icon="Information", Title="Message Box", IconStyle="Window
 
     MsBtext = ttk.Label(MsB, text=text)
     MsBtext.place(x=100, y=60)
-    
-    WindowIcon = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons\\transparent.ico')
+    if sys.platform == "win32":
+        WindowIcon = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons\\transparent.ico')
+    else:
+        WindowIcon = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons/transparent.ico')
     MsB.title(Title)
     MsB.geometry("400x200")
     MsB.resizable(False, False)
