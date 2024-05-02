@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 setup(
 name='SimpleTKMessageBox',
-version='0.2.3',
+version='0.2.6',
 author='Gustoon',
 author_email='no.email@gmail.com',
 description='A simple tkinter message box',
@@ -9,6 +9,7 @@ long_description="""
 See documentation at https://github.com/Gustoon/SimpleTkMessageBox
 """,
 packages=find_packages(),
+install_requires=['Pillow'],
 include_package_data=True,
 data_files=[
     ('SimpleTkMessageBox/icons', ['SimpleTkMessageBox/icons/transparent.ico']),

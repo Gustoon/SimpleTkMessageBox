@@ -2,6 +2,8 @@ from tkinter import ttk
 import tkinter
 import os
 import sys
+from PIL import Image, ImageTk 
+
 def ShowMSBox(master, Icon="Information", Title="Message Box", IconStyle="Windows 10", button1="", button2="", button3="", text="This is an info"):
     MsB = tkinter.Toplevel(master)
     StyleList = ["Windows 11","Windows 10", "Windows 7", "Personalized"]
@@ -26,16 +28,18 @@ def ShowMSBox(master, Icon="Information", Title="Message Box", IconStyle="Window
     elif Icon == "Information":
         IconPath = "5.png"
     else:
-        raise ValueError("Invalid Icon : " + Icon + ". It should be one of 'Warning', 'Check', 'Error', 'Question', or 'Information'.")
+        if IconStyle == "Personalized":
+            Path = Icon
+        else:
+            raise ValueError("Invalid Icon : " + Icon + ". It should be one of 'Warning', 'Check', 'Error', 'Question', or 'Information'.")
     
     if IconStyle == "Personalized":
         Path = Icon
     else:
-        if sys.platform == "win32":
-            Path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons\\' + Style + '\\' + IconPath)
-        else:
-            Path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons/' + Style + '/' + IconPath)
-    photo = tkinter.PhotoImage(file=Path)
+        Path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons', Style, IconPath)
+    photo = Image.open(os.path.realpath(Path))
+    photo = photo.resize((64, 64))
+    photo = ImageTk.PhotoImage(photo)
     image = ttk.Label(master=MsB, text="", image=photo)
     image.place(x=20, y=35)
 
@@ -80,10 +84,7 @@ def ShowMSBox(master, Icon="Information", Title="Message Box", IconStyle="Window
 
     MsBtext = ttk.Label(MsB, text=text)
     MsBtext.place(x=100, y=60)
-    if sys.platform == "win32":
-        WindowIcon = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons\\transparent.ico')
-    else:
-        WindowIcon = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons/transparent.ico')
+    WindowIcon = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons', 'transparent.ico')
     MsB.title(Title)
     MsB.geometry("400x200")
     MsB.resizable(False, False)
