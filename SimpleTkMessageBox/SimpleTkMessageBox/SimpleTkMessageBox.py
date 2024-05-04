@@ -3,6 +3,7 @@ import tkinter
 import os
 import sys
 from PIL import Image, ImageTk 
+import platform
 
 def ShowMSBox(master, Icon="Information", Title="Message Box", IconStyle="Windows 10", button1="", button2="", button3="", text="This is an info"):
     MsB = tkinter.Toplevel(master)
@@ -37,6 +38,10 @@ def ShowMSBox(master, Icon="Information", Title="Message Box", IconStyle="Window
         Path = Icon
     else:
         Path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons', Style, IconPath)
+
+    whiteWall = ttk.Frame(master=MsB, width=1000, height=1000, borderwidth=0)
+    whiteWall.place(x=0, y=0)
+
     photo = Image.open(os.path.realpath(Path))
     photo = photo.resize((64, 64))
     photo = ImageTk.PhotoImage(photo)
@@ -86,7 +91,10 @@ def ShowMSBox(master, Icon="Information", Title="Message Box", IconStyle="Window
     MsBtext.place(x=100, y=60)
     WindowIcon = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons', 'transparent.ico')
     MsB.title(Title)
-    MsB.geometry("400x200")
+    if platform.system() == "Windows":
+        MsB.geometry("400x200")
+    else:
+        MsB.geometry("410x200")
     MsB.resizable(False, False)
     MsB.iconbitmap(WindowIcon)
     MsB.transient(master)

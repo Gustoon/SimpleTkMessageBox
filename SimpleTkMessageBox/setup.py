@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 setup(
 name='SimpleTKMessageBox',
-version='0.2.6',
+version='0.2.7',
 author='Gustoon',
 author_email='no.email@gmail.com',
 description='A simple tkinter message box',
